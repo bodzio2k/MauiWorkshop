@@ -2,185 +2,72 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MonkeyFinder.View.MainPage"
-             xmlns:model="clr-namespace:MonkeyFinder.Model">
+             xmlns:model="clr-namespace:MonkeyFinder.Model"
+             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+             x:DataType="viewmodel:MonkeysViewModel"
+             Title="{Binding Title}">
 
-    <CollectionView>
-        <CollectionView.ItemsSource>
-            <x:Array Type="{x:Type model:Monkey}">
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+    <Grid ColumnDefinitions="*,*"
+          RowDefinitions="*,Auto"
+          Padding="8,8,8,0">
 
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+        <CollectionView Grid.ColumnSpan="2"
+                        Background="transparent"
+                        ItemsSource="{Binding Monkeys}"
+                        SelectionMode="None">
 
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Monkey">
+                    <StackLayout Padding="4,0,4,16">
+                        <Frame HeightRequest="128"
+                               Padding="0">
+                            <Grid ColumnDefinitions="128,*">
+                                <Image Source="{Binding Image}"
+                                       HeightRequest="128"
+                                       Aspect="AspectFill"/>
+                                <VerticalStackLayout Spacing="0"
+                                             Padding="8,2,0,8"
+                                             VerticalOptions="Start"
+                                             Grid.Column="1">
+                                    <Label Text="{Binding Name}" FontSize="Title"/>
+                                    <Label Text="{Binding Location}" FontSize="Caption"/>
+                                    <Label FontSize="Caption">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}° | {1}°">
+                                                <Binding Path="Longitude"/>
+                                                <Binding Path="Latitude"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+        <Button Grid.Row="1"
+                Grid.Column="0"
+                Text="Search"
+                Margin="0,8,4,8"
+                Command="{Binding GetMonkeysCommand}"
+                Style="{StaticResource ButtonOutline}"/>
 
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Text="Get closest"
+                Margin="4,8,0,8"
+                Style="{StaticResource ButtonOutline}"/>
 
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
+        <ActivityIndicator Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HeightRequest="48"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}"/>
 
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
 
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey
-                    Name="Baboon"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Capuchin Monkey"
-                    Location="Central and South America"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-
-                <model:Monkey Name="Blue Monkey"
-                    Location="Africa and Asia"
-                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Latitude="1.957709"
-                    Longitude="37.297204"/>
-            </x:Array>
-        </CollectionView.ItemsSource>
-
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="model:Monkey">
-                <HorizontalStackLayout Padding="8,8,0,2">
-                    <Image Source="{Binding Image}"
-                           HeightRequest="60"
-                           Aspect="AspectFill"/>
-                    <VerticalStackLayout Spacing="0" Padding="8,2,0,8" VerticalOptions="Center">
-                        <Label Text="{Binding Name}" FontSize="Title"/>
-                        <Label Text="{Binding Location}" FontSize="Caption"/>
-                        <Label FontSize="Caption">
-                            <Label.Text>
-                                <MultiBinding StringFormat="{}{0}° | {1}°">
-                                    <Binding Path="Longitude"/>
-                                    <Binding Path="Latitude"/>
-                                </MultiBinding>
-                            </Label.Text>
-                        </Label>
-                    </VerticalStackLayout>
-                </HorizontalStackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    </Grid>
 </ContentPage>
