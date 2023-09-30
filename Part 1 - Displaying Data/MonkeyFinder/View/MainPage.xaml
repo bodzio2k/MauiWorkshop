@@ -21,6 +21,11 @@
                     <StackLayout Padding="4,0,4,16">
                         <Frame HeightRequest="128"
                                Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GotoDetailsCommand}" />
+                            </Frame.GestureRecognizers>
+
                             <Grid ColumnDefinitions="128,*">
                                 <Image Source="{Binding Image}"
                                        HeightRequest="128"
