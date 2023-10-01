@@ -39,8 +39,8 @@
                                     <Label FontSize="Caption">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0}° | {1}°">
-                                                <Binding Path="Longitude"/>
                                                 <Binding Path="Latitude"/>
+                                                <Binding Path="Longitude"/>
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>
@@ -63,6 +63,7 @@
                 Grid.Column="1"
                 Text="Get closest"
                 Margin="4,8,0,8"
+                Command="{Binding GetClosestMonkeyCommand}"
                 Style="{StaticResource ButtonOutline}"/>
 
         <ActivityIndicator Grid.RowSpan="2"
