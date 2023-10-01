@@ -9,7 +9,7 @@
     <ScrollView>
         
         <Grid ColumnDefinitions="*,Auto,*"
-              RowDefinitions="160,Auto">
+              RowDefinitions="160,Auto,Auto">
 
             <BoxView Grid.ColumnSpan="3"
                      Grid.Row="0"
@@ -63,6 +63,12 @@
 
             </VerticalStackLayout>
 
+            <Button Text="Show on map"
+                    Style="{StaticResource ButtonOutline}"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    Margin="64,8,64,8"
+                    Command="{Binding OpenMapCommand}"/>
         </Grid>
     </ScrollView>
 </ContentPage>
