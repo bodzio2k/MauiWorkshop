@@ -18,6 +18,7 @@
         <RefreshView Grid.ColumnSpan="2"
                      Command="{Binding GetMonkeysCommand}"
                      IsRefreshing="{Binding IsRefreshing}">
+            
             <CollectionView Background="transparent"
                         ItemsSource="{Binding Monkeys}"
                         SelectionMode="None">
@@ -26,6 +27,13 @@
                     <GridItemsLayout Orientation="Vertical"
                                      Span="{OnIdiom Default=1, Desktop=3}"/>
                 </CollectionView.ItemsLayout>
+
+                <CollectionView.EmptyView>
+                    <Image Source="nodata.png"
+                           HeightRequest="200"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </CollectionView.EmptyView>
                 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Monkey">
