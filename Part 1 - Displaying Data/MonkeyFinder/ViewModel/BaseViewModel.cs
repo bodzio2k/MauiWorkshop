@@ -7,6 +7,9 @@ public partial class BaseViewModel : ObservableObject
     bool isBusy = false;
     
     [ObservableProperty]
+    bool isRefreshing = false;
+    
+    [ObservableProperty]
     string title = string.Empty;
 
     public bool IsNotBusy => !IsBusy;

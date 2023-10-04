@@ -7,50 +7,57 @@
              x:DataType="viewmodel:MonkeysViewModel"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Refresh" Command="{Binding GetMonkeysCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <Grid ColumnDefinitions="*,*"
           RowDefinitions="*,Auto"
           Padding="8,8,8,0">
 
-        <CollectionView Grid.ColumnSpan="2"
-                        Background="transparent"
+        <RefreshView Grid.ColumnSpan="2"
+                     Command="{Binding GetMonkeysCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView Background="transparent"
                         ItemsSource="{Binding Monkeys}"
                         SelectionMode="None">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Monkey">
-                    <StackLayout Padding="4,0,4,16">
-                        <Frame HeightRequest="128"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Monkey">
+                        <StackLayout Padding="4,0,4,16">
+                            <Frame HeightRequest="128"
                                Padding="0">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}"
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GotoDetailsCommand}" />
-                            </Frame.GestureRecognizers>
+                                </Frame.GestureRecognizers>
 
-                            <Grid ColumnDefinitions="128,*">
-                                <Image Source="{Binding Image}"
+                                <Grid ColumnDefinitions="128,*">
+                                    <Image Source="{Binding Image}"
                                        HeightRequest="128"
                                        Aspect="AspectFill"/>
-                                <VerticalStackLayout Spacing="0"
+                                    <VerticalStackLayout Spacing="0"
                                              Padding="8,2,0,8"
                                              VerticalOptions="Start"
                                              Grid.Column="1">
-                                    <Label Text="{Binding Name}" FontSize="Title"/>
-                                    <Label Text="{Binding Location}" FontSize="Caption"/>
-                                    <Label FontSize="Caption">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0}° | {1}°">
-                                                <Binding Path="Latitude"/>
-                                                <Binding Path="Longitude"/>
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                        <Label Text="{Binding Name}" FontSize="Title"/>
+                                        <Label Text="{Binding Location}" FontSize="Caption"/>
+                                        <Label FontSize="Caption">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0}° | {1}°">
+                                                    <Binding Path="Latitude"/>
+                                                    <Binding Path="Longitude"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
 
         <Button Grid.Row="1"
                 Grid.Column="0"
