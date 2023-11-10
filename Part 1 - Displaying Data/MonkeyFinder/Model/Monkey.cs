@@ -1,9 +1,11 @@
 ﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace MonkeyFinder.Model;
 
 public class Monkey
 {
+    [Key]
     public string Name { get; set; }
     public string Location { get; set; }
     public string Details { get; set; }
